@@ -28,7 +28,6 @@ export async function submitContactForm(data: {
 
   const entry = rateLimiter.get(ip);
 
-
   if (entry && entry.count >= 3) {
     return { success: false, message: "Too many requests. Please try again later." };
   }

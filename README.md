@@ -1,6 +1,4 @@
-# 🚀 Fabio Padoin – Front-End Developer Portfolio
-
----
+# Fabio Padoin – Front-End Developer Portfolio
 
 ## About
 

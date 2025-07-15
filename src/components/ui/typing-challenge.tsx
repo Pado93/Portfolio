@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useState, useMemo, useRef, type FC } from "react";
+import React, { useState, useMemo, useRef } from "react";
 
 import { CarIconGradient } from "@/assets/CarIconGradient";
 
-interface TypingChallengeProps {
-  sentence: string;
-}
-
-export const TypingChallenge: FC<TypingChallengeProps> = ({ sentence }) => {
+export const TypingChallenge = () => {
+  const sentence = "ciao io sono lollo";
   const [userInput, setUserInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 

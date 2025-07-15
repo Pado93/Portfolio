@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
+import clsx from "clsx";
 
 export const TypingChallenge = () => {
   const sentence = "ciao io sono lollo";
@@ -47,29 +48,60 @@ export const TypingChallenge = () => {
     <div
       onClick={handleContainerClick}
       aria-label="Simulated code block with developer information"
-      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none cursor-text"
+      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg text-foreground select-none cursor-text"
     >
+      <div className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
 
-      <div className="flex flex-row w-full h-[2px]">
         <div
-          className="h-full bg-gradient-to-r from-pink-500 to-violet-600 transition-all duration-200 ease-linear"
+          className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-pink-500 to-violet-600 transition-all duration-200 ease-linear"
           style={{ width: `${completionPercentage * 100}%` }}
         />
-        <div className="h-full flex-1 bg-zinc-700" />
+
+        <div
+          className={clsx(
+            "absolute top-0 right-0 w-[2px] bg-gradient-to-b from-violet-600 to-pink-500 transition-all ease-in-out",
+            {
+              "h-full duration-200 delay-100": isCompleted, // dura 500ms, parte dopo 200ms
+              "h-0 duration-200": !isCompleted,
+            }
+          )}
+        />
+
+        <div
+          className={clsx(
+            "absolute bottom-0 right-0 h-[2px] bg-gradient-to-l from-violet-600 to-pink-500 transition-all ease-in-out",
+            {
+              "w-full duration-400 delay-300": isCompleted, // dura 700ms, parte dopo 700ms (500+200)
+              "w-0 duration-200": !isCompleted,
+            }
+          )}
+        />
+
+        <div
+          className={clsx(
+            "absolute bottom-0 left-0 w-[2px] bg-gradient-to-t from-violet-600 to-pink-500 transition-all ease-in-out",
+            {
+              "h-full duration-200 delay-700": isCompleted,
+              "h-0 duration-200": !isCompleted,
+            }
+          )}
+        />
       </div>
 
-      <div className="relative z-10 py-2 px-4 text-xl font-bold">
-        <span aria-label="Testo da digitare">{feedbackText}</span>
-      </div>
+      <div className="relative z-10 px-2 sm:px-0">
+        <div className="py-2 px-4 text-xl font-bold">
+          <span aria-label="Testo da digitare">{feedbackText}</span>
+        </div>
 
-      <input
-        ref={inputRef}
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        disabled={isCompleted}
-        className="relative z-10 w-full p-4 font-mono dark:bg-gray-800 outline-none text-zinc-400 text-base cursor-default bg-transparent"
-      />
+        <input
+          ref={inputRef}
+          type="text"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          disabled={isCompleted}
+          className="w-full p-4 font-mono dark:bg-gray-800 outline-none text-zinc-400 text-base cursor-default bg-transparent"
+        />
+      </div>
     </div>
   );
 };

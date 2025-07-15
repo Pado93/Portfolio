@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, useRef, type FC } from "react"; // 1. Importa useRef
+import React, { useState, useMemo, useRef, type FC } from "react";
+import { CarIconGradient } from "@/assets/CarIconGradient";
 
 interface TypingChallengeProps {
   sentence: string;
@@ -31,10 +32,10 @@ export const TypingChallenge: FC<TypingChallengeProps> = ({ sentence }) => {
         );
       }
       if (char === " ") {
-        return <span key={index} className="bg-red-500/50 rounded"> </span>;
+        return <span key={index} className="bg-red-500/50"> </span>;
       }
       return (
-        <span key={index} className="text-white bg-red-500 rounded">
+        <span key={index} className="text-white bg-red-500">
           {char}
         </span>
       );
@@ -51,8 +52,12 @@ export const TypingChallenge: FC<TypingChallengeProps> = ({ sentence }) => {
     <div
       onClick={handleContainerClick}
       aria-label="Simulated code block with developer information"
-      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none"
+      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none relative"
     >
+      <div className="absolute top-[-32px] left-0">
+        <CarIconGradient size={32}/>
+
+      </div>
       <div className="flex flex-row">
         <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600" />
         <div className="h-[2px] w-full bg-gradient-to-r from-violet-600 to-transparent" />

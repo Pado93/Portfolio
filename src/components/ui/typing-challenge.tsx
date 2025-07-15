@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef, type FC } from "react";
+
 import { CarIconGradient } from "@/assets/CarIconGradient";
 
 interface TypingChallengeProps {
@@ -13,32 +14,37 @@ export const TypingChallenge: FC<TypingChallengeProps> = ({ sentence }) => {
 
   const isCompleted = userInput === sentence;
 
+  const completionPercentage = useMemo(() => {
+    let correctChars = 0;
+    for (let i = 0; i < userInput.length; i++) {
+      if (userInput[i] === sentence[i]) {
+        correctChars++;
+      } else {
+        break;
+      }
+    }
+
+    return sentence.length > 0 ? correctChars / sentence.length : 0;
+  }, [userInput, sentence]);
+
+  const carStyle = {
+    left: `calc(${completionPercentage * 100}% - ${completionPercentage * 32}px)`,
+    transition: "left 0.2s linear",
+  };
+
   const feedbackText = useMemo(() => {
     return sentence.split("").map((char, index) => {
       const userChar = userInput[index];
-
       if (userChar === undefined) {
-        return (
-          <span key={index} className="text-gray-400">
-            {char}
-          </span>
-        );
+        return <span key={index} className="text-gray-400">{char}</span>;
       }
       if (userChar === char) {
-        return (
-          <span key={index} className="text-green-500">
-            {char}
-          </span>
-        );
+        return <span key={index} className="text-green-500">{char}</span>;
       }
       if (char === " ") {
-        return <span key={index} className="bg-red-500/50"> </span>;
+        return <span key={index} className="bg-red-500/50 rounded"> </span>;
       }
-      return (
-        <span key={index} className="text-white bg-red-500">
-          {char}
-        </span>
-      );
+      return <span key={index} className="text-white bg-red-500 rounded">{char}</span>;
     });
   }, [sentence, userInput]);
 
@@ -52,12 +58,15 @@ export const TypingChallenge: FC<TypingChallengeProps> = ({ sentence }) => {
     <div
       onClick={handleContainerClick}
       aria-label="Simulated code block with developer information"
-      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none relative"
+      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none"
     >
-      <div className="absolute top-[-32px] left-0">
+      <div
+        className="absolute top-[-32px]"
+        style={carStyle}
+      >
         <CarIconGradient size={32}/>
-
       </div>
+
       <div className="flex flex-row">
         <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600" />
         <div className="h-[2px] w-full bg-gradient-to-r from-violet-600 to-transparent" />

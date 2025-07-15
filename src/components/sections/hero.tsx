@@ -29,7 +29,7 @@ export default function Hero() {
         <MagicCard className="mt-4 sm:mt-6 md:mt-8 rounded-lg shadow-lg border bg-zinc-800/50">
           <div className=" w-full  flex items-center justify-center ">
             <a
-              href="/CV.pdf"
+              href="/fabio_padoin_cv.pdf"
               download="fabio_padoin_cv.pdf"
               className="flex flex-col gap-1 text-center w-full h-full py-2 lg:py-6"
               aria-label="Download my CV (lightweight PDF)"

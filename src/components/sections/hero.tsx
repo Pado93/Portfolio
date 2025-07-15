@@ -27,7 +27,7 @@ export default function Hero() {
           </span>
         </div>
         <MagicCard className="mt-4 sm:mt-6 md:mt-8 rounded-lg shadow-lg border bg-zinc-800/50">
-          <div className=" w-full  flex items-center justify-center ">
+          <div className="w-full flex items-center justify-center ">
             <a
               href="/fabio_padoin_cv.pdf"
               download="fabio_padoin_cv.pdf"
@@ -35,7 +35,7 @@ export default function Hero() {
               aria-label="Download my CV (lightweight PDF)"
             >
               <span>Resume</span>
-              <span className="text-zinc-400 text-bas ">(Click to download)</span>
+              <span className="text-zinc-400 text-base">(Click to download)</span>
             </a>
           </div>
         </MagicCard>

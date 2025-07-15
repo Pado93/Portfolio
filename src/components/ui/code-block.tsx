@@ -11,13 +11,13 @@ export default function CodeBlock() {
       aria-label="Simulated code block with developer information"
       className="w-full lg:w-1/2 bg-gradient-to-r from-black to-[#0a0d37] border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground"
     >
-      {/* Top visual lines */}
+      {/* Visual lines */}
       <div className="flex flex-row">
         <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600" />
         <div className="h-[2px] w-full bg-gradient-to-r from-violet-600 to-transparent" />
       </div>
 
-      {/* Semantic header */}
+      {/* Header */}
       <header className="px-4 lg:px-8 py-5 flex justify-between items-center bg-[#000000] rounded-t-lg">
         <div className="flex flex-row space-x-2">
           <div className="h-3 w-3 rounded-full bg-red-500" />
@@ -29,7 +29,7 @@ export default function CodeBlock() {
 
       {/* Main code body */}
       <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8 relative">
-        {/* Decorative blurred background blobs */}
+        {/* Blurred background blobs */}
         <div className="absolute -top-24 -left-24 w-56 h-56 bg-blue-600 rounded-full opacity-10 filter blur-3xl" />
         <div className="absolute -bottom-24 -right-24 w-56 h-56 bg-pink-600 rounded-full opacity-10 filter blur-3xl" />
 
@@ -46,7 +46,7 @@ export default function CodeBlock() {
             ))}
           </div>
 
-          {/* Simulated code block */}
+          {/* Code block */}
           <code className="text-base sm:text-xl font-mono">
             <div>
               <span className="text-pink-400 mr-2">const</span>
@@ -75,7 +75,7 @@ export default function CodeBlock() {
         </div>
       </div>
 
-      {/* Semantic footer */}
+      {/* Footer */}
       <footer className="mx-4 lg:mx-8 my-4 border-t border-indigo-900 py-3 text-xs sm:text-sm text-gray-500 flex justify-between items-center">
         <div>UTF-8</div>
         <div>JavaScript</div>

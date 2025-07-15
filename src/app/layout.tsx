@@ -20,7 +20,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Fabio Padoin | Frontend Developer",
     description: "Creating high-performance web apps with modern UX and clean code.",
-    url: "https://Pado93.github.io/",
+    images: [
+      {
+        url: "https://fpadoin.dev/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Fabio Padoin | Frontend Developer",
+      },
+    ],
+    url: "https://fpadoin.dev/",
     siteName: "Fabio Padoin Portfolio",
     locale: "en_US",
     type: "website",

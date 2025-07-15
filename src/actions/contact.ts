@@ -63,7 +63,7 @@ export async function submitContactForm(data: {
           ${sanitizedMessage.replace(/\n/g, "<br>")}
         </p>
         <hr style="margin: 20px 0;" />
-        <small style="color: #777;">Sent via https://Pado93.github.io contact form</small>
+        <small style="color: #777;">Sent via https://fpadoin.dev/ contact form</small>
       </div>
     `,
     });

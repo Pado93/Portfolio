@@ -2,8 +2,6 @@
 
 import React, { useState, useMemo, useRef } from "react";
 
-import { CarIconGradient } from "@/assets/CarIconGradient";
-
 export const TypingChallenge = () => {
   const sentence = "ciao io sono lollo";
   const [userInput, setUserInput] = useState("");
@@ -20,14 +18,8 @@ export const TypingChallenge = () => {
         break;
       }
     }
-
     return sentence.length > 0 ? correctChars / sentence.length : 0;
   }, [userInput, sentence]);
-
-  const carStyle = {
-    left: `calc(${completionPercentage * 100}% - ${completionPercentage * 32}px)`,
-    transition: "left 0.2s linear",
-  };
 
   const feedbackText = useMemo(() => {
     return sentence.split("").map((char, index) => {
@@ -55,21 +47,18 @@ export const TypingChallenge = () => {
     <div
       onClick={handleContainerClick}
       aria-label="Simulated code block with developer information"
-      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none"
+      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg px-2 sm:px-0 text-foreground select-none cursor-text"
     >
-      <div
-        className="absolute top-[-32px]"
-        style={carStyle}
-      >
-        <CarIconGradient size={32}/>
+
+      <div className="flex flex-row w-full h-[2px]">
+        <div
+          className="h-full bg-gradient-to-r from-pink-500 to-violet-600 transition-all duration-200 ease-linear"
+          style={{ width: `${completionPercentage * 100}%` }}
+        />
+        <div className="h-full flex-1 bg-zinc-700" />
       </div>
 
-      <div className="flex flex-row">
-        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600" />
-        <div className="h-[2px] w-full bg-gradient-to-r from-violet-600 to-transparent" />
-      </div>
-
-      <div className="py-2 px-4 text-xl font-bold">
+      <div className="relative z-10 py-2 px-4 text-xl font-bold">
         <span aria-label="Testo da digitare">{feedbackText}</span>
       </div>
 
@@ -79,10 +68,7 @@ export const TypingChallenge = () => {
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
         disabled={isCompleted}
-        className="w-full p-4 font-mono dark:bg-gray-800 outline-none text-zinc-400 text-base cursor-default"
-        placeholder="Inizia a scrivere qui..."
-        aria-label="Campo di input"
-        maxLength={sentence.length}
+        className="relative z-10 w-full p-4 font-mono dark:bg-gray-800 outline-none text-zinc-400 text-base cursor-default bg-transparent"
       />
     </div>
   );

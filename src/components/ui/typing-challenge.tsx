@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
+
 import clsx from "clsx";
 
 export const TypingChallenge = () => {
@@ -48,9 +49,9 @@ export const TypingChallenge = () => {
     <div
       onClick={handleContainerClick}
       aria-label="Simulated code block with developer information"
-      className="w-full lg:w-1/2 bg-zinc-800/50 border border-[#1b2c68a0] relative rounded-lg shadow-lg text-foreground select-none cursor-text"
+      className="w-full lg:w-1/2 bg-zinc-800/50 relative shadow-lg text-foreground select-none cursor-text"
     >
-      <div className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
 
         <div
           className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-pink-500 to-violet-600 transition-all duration-200 ease-linear"

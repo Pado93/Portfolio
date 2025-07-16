@@ -16,6 +16,7 @@ const skills: string[] = [
   "Cypress",
   "Shopify",
   "SEO",
+  "Motion",
 ];
 
 export default skills;

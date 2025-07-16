@@ -26,7 +26,7 @@ export function ContainerTextFlip({
     "JavaScript Developer",
     "React Native Developer",
   ],
-  interval = 5000,
+  interval = 4000,
   className,
   textClassName,
   animationDuration = 2000,

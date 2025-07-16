@@ -74,7 +74,7 @@ export const projectsData: Project[] = [
       return (
         <>
           <p>
-            Frontend development for <strong>Visual Boost</strong>, a marketing agency specialized in lead generation and customer acquisition.
+            Frontend development for <strong>Visual Boost</strong>, a platform that delivers high-quality editorial images for the fashion, food, and beauty industries.
           </p>
           <p>
             Optimized the site for SEO and performance, implemented tracking infrastructure with GTM and Google Analytics, and ensured full mobile responsiveness.

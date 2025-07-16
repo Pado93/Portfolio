@@ -122,7 +122,7 @@ export const TypingChallenge = () => {
       if (!isCompleted) {
         if (userChar === char) className = "text-green-500";
         else if (userChar !== undefined)
-          className = char === " " ? "bg-red-500/50 rounded" : "text-white bg-red-500 rounded";
+          className = "text-white bg-red-500";
       }
       return (
         <motion.span

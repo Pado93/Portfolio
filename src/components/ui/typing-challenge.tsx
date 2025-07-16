@@ -34,7 +34,26 @@ export const TypingChallenge = () => {
     return chars[Math.floor(Math.random() * chars.length)];
   };
 
-  const startScramble = useCallback((toText: string, onComplete: () => void) => {
+  const resetGame = useCallback(() => {
+    const hideAnimationDuration = 1000;
+    const topBarDelay = 800;
+    const topBarTimeout = setTimeout(() => setTopBarWidth(0), topBarDelay);
+    const resetTimeout = setTimeout(() => {
+      const nextIndex = (sentenceIndex + 1) % phrases.length;
+      setSentenceIndex(nextIndex);
+      setUserInput("");
+      setIsCompleted(false);
+      setIsResetting(false);
+      setIsGlowing(true);
+      setShouldFocus(true);
+    }, hideAnimationDuration);
+    return () => {
+      clearTimeout(topBarTimeout);
+      clearTimeout(resetTimeout);
+    };
+  },[sentenceIndex]);
+
+  const startScramble = useCallback((toText: string) => {
     let iterations = 0;
     const toChars = toText.split("");
     if (scrambleInterval.current) clearInterval(scrambleInterval.current);
@@ -44,16 +63,11 @@ export const TypingChallenge = () => {
       setScrambledText(newText);
       if (iterations >= toChars.length) {
         clearInterval(scrambleInterval.current!);
-        onComplete();
+        setIsResetting(true);
+        resetGame();
       }
     }, 40);
-  }, []);
-
-  const handleCompletion = useCallback(() => {
-    setScrambledText(sentence.split(""));
-    setIsCompleted(true);
-    setTopBarWidth(100);
-  }, [sentence]);
+  }, [resetGame]);
 
   useEffect(() => {
     if (shouldFocus && !isCompleted) {
@@ -67,32 +81,11 @@ export const TypingChallenge = () => {
       const borderAnimationDuration = 900;
       const timeoutId = setTimeout(() => {
         const nextSentence = phrases[(sentenceIndex + 1) % phrases.length];
-        startScramble(nextSentence, () => setIsResetting(true));
+        startScramble(nextSentence);
       }, borderAnimationDuration);
       return () => clearTimeout(timeoutId);
     }
-  }, [isCompleted, isResetting, sentenceIndex, startScramble]);
-
-  useEffect(() => {
-    if (isResetting) {
-      const hideAnimationDuration = 1000;
-      const topBarDelay = 800;
-      const topBarTimeout = setTimeout(() => setTopBarWidth(0), topBarDelay);
-      const resetTimeout = setTimeout(() => {
-        const nextIndex = (sentenceIndex + 1) % phrases.length;
-        setSentenceIndex(nextIndex);
-        setUserInput("");
-        setIsCompleted(false);
-        setIsResetting(false);
-        setIsGlowing(true);
-        setShouldFocus(true);
-      }, hideAnimationDuration);
-      return () => {
-        clearTimeout(topBarTimeout);
-        clearTimeout(resetTimeout);
-      };
-    }
-  }, [isResetting, sentenceIndex]);
+  }, [isCompleted, isResetting, resetGame, sentenceIndex, startScramble]);
 
   useEffect(() => {
     if (isGlowing) {
@@ -103,15 +96,24 @@ export const TypingChallenge = () => {
 
   useEffect(() => {
     if (userInput === sentence && !isCompleted) {
-      handleCompletion();
+      setScrambledText(sentence.split(""));
+      setIsCompleted(true);
+      setTopBarWidth(100);
     }
-  }, [userInput, sentence, isCompleted, handleCompletion]);
+  }, [userInput, sentence, isCompleted]);
 
   useEffect(() => {
-    if (!isCompleted && !isResetting) {
-      const percentage = sentence.length > 0 ? (userInput.length / sentence.length) * 100 : 0;
-      setTopBarWidth(percentage);
+    if (isCompleted || isResetting) return;
+    let correctCharsCount = 0;
+    for (let i = 0; i < userInput.length; i++) {
+      if (userInput[i] === sentence[i]) {
+        correctCharsCount++;
+      } else {
+        break;
+      }
     }
+    const percentage = sentence.length > 0 ? (correctCharsCount / sentence.length) * 100 : 0;
+    setTopBarWidth(percentage);
   }, [userInput, sentence, isCompleted, isResetting]);
 
   const feedbackText = useMemo(() => {
@@ -121,8 +123,7 @@ export const TypingChallenge = () => {
       let className = "text-gray-400";
       if (!isCompleted) {
         if (userChar === char) className = "text-green-500";
-        else if (userChar !== undefined)
-          className = "text-white bg-red-500";
+        else if (userChar !== undefined) className = "text-white bg-red-500";
       }
       return (
         <motion.span

@@ -34,6 +34,7 @@ const eslintConfig = [
       "arrow-spacing": ["error", { "before": true, "after": true }],
       "react-hooks/rules-of-hooks": "error", 
       "react-hooks/exhaustive-deps": "warn",
+      "import/no-named-as-default": "off",
       "import/order": [
     "error",
     {
